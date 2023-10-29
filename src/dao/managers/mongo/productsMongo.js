@@ -1,0 +1,37 @@
+import {productsModel} from "../../models/products.model.js";
+
+export class ProductsMongo{
+    constructor(){
+        this.model = productsModel;
+    };
+
+    async get(){
+        try{
+            const products = await this.model.find();
+            return products;
+        }catch(error){
+            console.log(error.message);
+            throw new Error("Hubo un error al obtener los productos");
+        }
+    };
+
+    async getById(id){
+        try{
+            const product = await this.model.findById(id);
+            return product;
+        }catch(error){
+            console.log(error.message);
+            throw new Error("Hubo un error al obtener el producto");
+        }
+    };
+
+    async save(productInfo){
+        try{
+            const productCreated = await this.model.create(productInfo)
+            return productCreated;
+        }catch(error){
+            console.log(error.message);
+            throw new Error("Hubo un error al crear el producto");
+        }
+    };
+}
